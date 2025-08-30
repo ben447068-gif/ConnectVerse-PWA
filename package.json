@@ -1,0 +1,11 @@
+{
+  "name": "social-media-pwa",
+  "version": "1.0.0",
+  "description": "A simple social media PWA",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#317EFB">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectVerse | All-in-One Social Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .story-ring {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        .darken-on-hover:hover {
+            filter: brightness(90%);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .chat-bubble-me {
+            border-radius: 18px 18px 0 18px;
+        }
+        .chat-bubble-them {
+            border-radius: 18px 18px 18px 0;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="fixed bottom-4 right-4 z-50 w-12 h-12 rounded-full bg-gray-800 dark:bg-gray-200 shadow-lg flex items-center justify-center">
+        <i class="fas fa-moon text-white dark:text-gray-800"></i>
+    </button>
+
+    <!-- Main App Container -->
+    <div class="max-w-screen-xl mx-auto flex h-screen">
+        <!-- Left Sidebar (Facebook-like) -->
+        <div class="hidden md:block w-64 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-y-auto">
+            <div class="p-4">
+                <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">ConnectVerse</h1>
+                
+                <!-- Navigation -->
+                <div class="mt-8 space-y-2">
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg bg-blue-100 dark:bg-gray-700">
+                        <i class="fas fa-home text-blue-600 dark:text-blue-400"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Friends</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-users"></i>
+                        <span>Groups</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-store"></i>
+                        <span>Marketplace</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-tv"></i>
+                        <span>Watch</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-calendar"></i>
+                        <span>Events</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-bookmark"></i>
+                        <span>Saved</span>
+                    </a>
+                </div>
+                
+                <!-- Shortcuts -->
+                <div class="mt-8">
+                    <h3 class="font-semibold text-gray-500 dark:text-gray-400 px-2 mb-2">Your Shortcuts</h3>
+                    <div class="space-y-2">
+                        <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <div class="w-6 h-6 rounded-md bg-red-500 flex items-center justify-center text-white">
+                                <i class="fas fa-utensils text-xs"></i>
+                            </div>
+                            <span>Food Lovers</span>
+                        </a>
+                        <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <div class="w-6 h-6 rounded-md bg-green-500 flex items-center justify-center text-white">
+                                <i class="fas fa-running text-xs"></i>
+                            </div>
+                            <span>Fitness Group</span>
+                        </a>
+                        <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <div class="w-6 h-6 rounded-md bg-purple-500 flex items-center justify-center text-white">
+                                <i class="fas fa-gamepad text-xs"></i>
+                            </div>
+                            <span>Gamers</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+            <!-- Stories (Instagram-like) -->
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide">
+                    <!-- Your Story -->
+                    <div class="flex flex-col items-center space-y-1">
+                        <div class="relative">
+                            <div class="w-16 h-16 rounded-full p-0.5 story-ring">
+                                <div class="bg-white dark:bg-gray-800 rounded-full w-full h-full flex items-center justify-center">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Your story" class="w-14 h-14 rounded-full object-cover">
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 right-0 bg-blue-500 rounded-full w-5 h-5 flex items-center justify-center border-2 border-white dark:border-gray-800">
+                                <i class="fas fa-plus text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <span class="text-xs">Your Story</span>
+                    </div>
+                    
+                    <!-- Other Stories -->
+                    <div class="flex flex-col items-center space-y-1">
+                        <div class="w-16 h-16 rounded-full p-0.5 story-ring">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Story" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <span class="text-xs">johndoe</span>
+                    </div>
+                    <div class="flex flex-col items-center space-y-1">
+                        <div class="w-16 h-16 rounded-full p-0.5 story-ring">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Story" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <span class="text-xs">janedoe</span>
+                    </div>
+                    <div class="flex flex-col items-center space-y-1">
+                        <div class="w-16 h-16 rounded-full p-0.5 story-ring">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Story" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <span class="text-xs">mikesmith</span>
+                    </div>
+                    <div class="flex flex-col items-center space-y-1">
+                        <div class="w-16 h-16 rounded-full p-0.5 story-ring">
+                            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Story" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <span class="text-xs">sarahj</span>
+                    </div>
+                    <div class="flex flex-col items-center space-y-1">
+                        <div class="w-16 h-16 rounded-full p-0.5 story-ring">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Story" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <span class="text-xs">alexg</span>
+                    </div>
+                    <div class="flex flex-col items-center space-y-1">
+                        <div class="w-16 h-16 rounded-full p-0.5 story-ring">
+                            <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Story" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <span class="text-xs">emilyw</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Create Post (Facebook-like) -->
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-2">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-10 h-10 rounded-full">
+                    <input type="text" placeholder="What's on your mind?" class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full py-2 px-4 focus:outline-none">
+                </div>
+                <div class="flex justify-between mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <button class="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg px-3 py-1">
+                        <i class="fas fa-video text-red-500"></i>
+                        <span>Live Video</span>
+                    </button>
+                    <button class="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg px-3 py-1">
+                        <i class="fas fa-images text-green-500"></i>
+                        <span>Photo/Video</span>
+                    </button>
+                    <button class="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg px-3 py-1">
+                        <i class="fas fa-smile text-yellow-500"></i>
+                        <span>Feeling/Activity</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Posts Feed -->
+            <div class="pb-16">
+                <!-- Text Post (X/Twitter-like) -->
+                <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex space-x-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-10 h-10 rounded-full">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-1">
+                                <span class="font-semibold">John Doe</span>
+                                <span class="text-gray-500 text-sm">@johndoe</span>
+                                <span class="text-gray-500 text-sm">· 2h</span>
+                            </div>
+                            <p class="mt-1">Just finished reading an amazing book about AI and the future of humanity. Highly recommend "The Age of AI" by Henry Kissinger, Eric Schmidt, and Daniel Huttenlocher.</p>
+                            <div class="flex justify-between mt-3 text-gray-500 max-w-md">
+                                <button class="flex items-center space-x-1 hover:text-blue-500">
+                                    <i class="far fa-comment"></i>
+                                    <span>24</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-green-500">
+                                    <i class="fas fa-retweet"></i>
+                                    <span>12</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-red-500">
+                                    <i class="far fa-heart"></i>
+                                    <span>87</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-blue-500">
+                                    <i class="fas fa-share"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image Post (Instagram-like) -->
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <div class="p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User" class="w-8 h-8 rounded-full">
+                                <span class="font-semibold">Jane Doe</span>
+                            </div>
+                            <button>
+                                <i class="fas fa-ellipsis-h text-gray-500"></i>
+                            </button>
+                        </div>
+                        <p class="mt-3">Beautiful sunset at the beach today!  🌅 #sunset #beach #vacation</p>
+                    </div>
+                    <div class="aspect-w-1 aspect-h-1 bg-gray-100 dark:bg-gray-700">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post" class="w-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between text-xl">
+                            <div class="flex space-x-4">
+                                <button class="hover:text-red-500">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="hover:text-gray-600 dark:hover:text-gray-300">
+                                    <i class="far fa-comment"></i>
+                                </button>
+                                <button class="hover:text-gray-600 dark:hover:text-gray-300">
+                                    <i class="far fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <button class="hover:text-gray-600 dark:hover:text-gray-300">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2">
+                            <span class="font-semibold">1,234 likes</span>
+                        </div>
+                        <div class="mt-1">
+                            <span class="text-gray-500 text-sm">2 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Post (TikTok-like) -->
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <div class="p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" class="w-8 h-8 rounded-full">
+                                <span class="font-semibold">Mike Smith</span>
+                            </div>
+                            <button>
+                                <i class="fas fa-ellipsis-h text-gray-500"></i>
+                            </button>
+                        </div>
+                        <p class="mt-3">Check out this cool trick with my dog!  🐕 #dogtricks #petlover</p>
+                    </div>
+                    <div class="video-container">
+                        <video controls class="w-full">
+                            <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between">
+                            <div class="flex space-x-4">
+                                <button class="flex flex-col items-center">
+                                    <i class="far fa-heart text-xl"></i>
+                                    <span class="text-xs mt-1">1.2K</span>
+                                </button>
+                                <button class="flex flex-col items-center">
+                                    <i class="far fa-comment text-xl"></i>
+                                    <span class="text-xs mt-1">43</span>
+                                </button>
+                                <button class="flex flex-col items-center">
+                                    <i class="far fa-share-square text-xl"></i>
+                                    <span class="text-xs mt-1">Share</span>
+                                </button>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-white dark:border-gray-800">
+                                    <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User" class="w-full h-full object-cover">
+                                </div>
+                                <div class="w-1 h-6 mt-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Marketplace Post (Facebook-like) -->
+                <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User" class="w-10 h-10 rounded-full">
+                        <div>
+                            <div class="font-semibold">Sarah Johnson</div>
+                            <div class="text-gray-500 text-sm">Selling · 3 days ago</div>
+                        </div>
+                    </div>
+                    <p class="mt-3">Selling my barely used MacBook Pro 2020. 16GB RAM, 512GB SSD. Perfect condition with original box and accessories.</p>
+                    <div class="mt-3 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="MacBook" class="w-full h-48 object-cover">
+                        <div class="p-3">
+                            <div class="font-bold text-lg">MacBook Pro 2020</div>
+                            <div class="text-green-600 font-semibold">$1,200</div>
+                            <div class="text-gray-500 text-sm">San Francisco, CA</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-3">
+                        <button class="flex-1 bg-gray-100 dark:bg-gray-700 py-2 rounded-lg font-medium">
+                            <i class="far fa-comment-alt mr-1"></i> Message
+                        </button>
+                        <button class="flex-1 ml-2 bg-blue-500 text-white py-2 rounded-lg font-medium">
+                            <i class="fas fa-shopping-cart mr-1"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="hidden lg:block w-80 border-l border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-y-auto">
+            <div class="p-4">
+                <!-- Contacts/WhatsApp-like -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-semibold">Contacts</h3>
+                        <div class="flex space-x-3 text-gray-500">
+                            <button><i class="fas fa-video"></i></button>
+                            <button><i class="fas fa-search"></i></button>
+                            <button><i class="fas fa-ellipsis-h"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                            <div class="relative">
+                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User" class="w-10 h-10 rounded-full">
+                                <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white dark:border-gray-800"></div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Alex Green</div>
+                                <div class="text-xs text-gray-500">Online</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                            <div class="relative">
+                                <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="User" class="w-10 h-10 rounded-full">
+                                <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white dark:border-gray-800"></div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Emily Wilson</div>
+                                <div class="text-xs text-gray-500">Online</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                            <div class="relative">
+                                <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="User" class="w-10 h-10 rounded-full">
+                                <div class="absolute bottom-0 right-0 w-3 h-3 bg-gray-400 rounded-full border-2 border-white dark:border-gray-800"></div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Robert Chen</div>
+                                <div class="text-xs text-gray-500">Offline</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                            <div class="relative">
+                                <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="User" class="w-10 h-10 rounded-full">
+                                <div class="absolute bottom-0 right-0 w-3 h-3 bg-gray-400 rounded-full border-2 border-white dark:border-gray-800"></div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Lisa Park</div>
+                                <div class="text-xs text-gray-500">Offline</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group Chats -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-semibold">Group Chats</h3>
+                        <button class="text-gray-500">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                            <div class="relative">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Family Group</div>
+                                <div class="text-xs text-gray-500">You: See you tomorrow!</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                            <div class="relative">
+                                <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Work Team</div>
+                                <div class="text-xs text-gray-500">Meeting at 3pm</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trending (X/Twitter-like) -->
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4">
+                    <h3 class="font-bold text-lg mb-3">Trending Now</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="text-gray-500 text-sm">Technology · Trending</div>
+                            <div class="font-bold">#AIRevolution</div>
+                            <div class="text-gray-500 text-sm">125K posts</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 text-sm">Sports · Trending</div>
+                            <div class="font-bold">#WorldCup2026</div>
+                            <div class="text-gray-500 text-sm">342K posts</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 text-sm">Entertainment · Trending</div>
+                            <div class="font-bold">#NewMovieRelease</div>
+                            <div class="text-gray-500 text-sm">89K posts</div>
+                        </div>
+                    </div>
+                    <button class="text-blue-500 mt-3 text-sm">Show more</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around py-2 lg:hidden z-40">
+        <button class="flex flex-col items-center text-blue-500 dark:text-blue-400">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-xs mt-1">Home</span>
+        </button>
+        <button class="flex flex-col items-center text-gray-500 dark:text-gray-400">
+            <i class="fas fa-search text-xl"></i>
+            <span class="text-xs mt-1">Search</span>
+        </button>
+        <button class="flex flex-col items-center text-gray-500 dark:text-gray-400">
+            <i class="fas fa-plus-square text-xl"></i>
+            <span class="text-xs mt-1">Create</span>
+        </button>
+        <button class="flex flex-col items-center text-gray-500 dark:text-gray-400">
+            <i class="fas fa-heart text-xl"></i>
+            <span class="text-xs mt-1">Activity</span>
+        </button>
+        <button class="flex flex-col items-center text-gray-500 dark:text-gray-400">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="w-6 h-6 rounded-full">
+            <span class="text-xs mt-1">Profile</span>
+        </button>
+    </div>
+
+    <!-- Chat Window (WhatsApp-like) - Hidden by default -->
+    <div id="chatWindow" class="hidden fixed bottom-16 right-4 w-72 bg-white dark:bg-gray-800 rounded-t-lg shadow-xl border border-gray-200 dark:border-gray-700 z-40">
+        <div class="bg-blue-500 dark:bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User" class="w-8 h-8 rounded-full">
+                <span>Alex Green</span>
+            </div>
+            <div class="flex space-x-2">
+                <button><i class="fas fa-video"></i></button>
+                <button><i class="fas fa-phone"></i></button>
+                <button id="closeChat"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="p-3 h-64 overflow-y-auto bg-gray-50 dark:bg-gray-700">
+            <div class="space-y-3">
+                <div class="flex justify-start">
+                    <div class="bg-gray-200 dark:bg-gray-600 p-2 chat-bubble-them max-w-xs">
+                        Hey, how are you doing?
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <div class="bg-blue-500 text-white p-2 chat-bubble-me max-w-xs">
+                        I'm good, thanks! How about you?
+                    </div>
+                </div>
+                <div class="flex justify-start">
+                    <div class="bg-gray-200 dark:bg-gray-600 p-2 chat-bubble-them max-w-xs">
+                        Pretty good! Just wanted to ask if you're coming to the party tomorrow?
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <div class="bg-blue-500 text-white p-2 chat-bubble-me max-w-xs">
+                        Definitely! What time does it start?
+                    </div>
+                </div>
+                <div class="flex justify-start">
+                    <div class="bg-gray-200 dark:bg-gray-600 p-2 chat-bubble-them max-w-xs">
+                        Around 8pm. Bring some drinks if you can!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-2 border-t border-gray-200 dark:border-gray-700 flex">
+            <input type="text" placeholder="Type a message" class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full py-2 px-4 focus:outline-none">
+            <button class="ml-2 w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Chat Button (Mobile) -->
+    <button id="openChat" class="fixed bottom-16 right-4 w-12 h-12 rounded-full bg-blue-500 text-white shadow-lg flex items-center justify-center lg:hidden z-30">
+        <i class="fas fa-comment-dots text-xl"></i>
+    </button>
+
+    <script>
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved user preference or use OS preference
+        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedMode = localStorage.getItem('darkMode');
+        
+        if (savedMode === 'dark' || (!savedMode && userPrefersDark)) {
+            html.classList.add('dark');
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+            
+            // Update icon
+            const icon = darkModeToggle.querySelector('i');
+            if (isDark) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+        
+        // Chat window toggle
+        const chatWindow = document.getElementById('chatWindow');
+        const openChat = document.getElementById('openChat');
+        const closeChat = document.getElementById('closeChat');
+        
+        openChat.addEventListener('click', () => {
+            chatWindow.classList.toggle('hidden');
+        });
+        
+        closeChat.addEventListener('click', () => {
+            chatWindow.classList.add('hidden');
+        });
+        
+        // Simulate loading
+        setTimeout(() => {
+            document.querySelectorAll('.animate-pulse-slow').forEach(el => {
+                el.classList.remove('animate-pulse-slow');
+            });
+        }, 2000);
+    </script>
+</body>
+</html>
